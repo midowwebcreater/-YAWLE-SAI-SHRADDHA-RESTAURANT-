@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shraddha Restaurant</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <!-- Framer Motion like animation for JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
+  
+  <style>
+    body { overflow-x: hidden; }
+    canvas { display: block; position: absolute; top: 0; left: 0; z-index: -1; }
+    .glow-btn {
+      background: linear-gradient(90deg,#ff7e5f,#feb47b);
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      box-shadow: 0 0 15px #ff7e5f, 0 0 30px #feb47b;
+      transition: 0.3s all;
+    }
+    .glow-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #ff7e5f, 0 0 50px #feb47b;
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-900 relative">
+
+  <!-- 3D Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col justify-center items-center text-white relative z-10">
+    <h1 class="text-6xl font-bold mb-4 animate-bounce">Shraddha Restaurant</h1>
+    <p class="text-xl mb-8">Premium Dining Experience</p>
+    <button onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})" class="glow-btn">
+      Book a Table
+    </button>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 px-10 text-center bg-gray-50 relative z-10">
+    <h2 class="text-4xl font-semibold mb-4">About Us</h2>
+    <p class="max-w-xl mx-auto text-gray-700">
+      Shraddha Restaurant offers a premium dining experience with exquisite cuisine, elegant ambiance, and top-notch service.
+    </p>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="booking" class="py-20 px-10 bg-white relative z-10">
+    <h2 class="text-4xl font-semibold text-center mb-8">Reserve Your Table</h2>
+    <form id="bookingForm" class="max-w-xl mx-auto grid gap-4">
+      <input type="text" placeholder="Name" name="name" class="border p-3 rounded" required>
+      <input type="text" placeholder="Phone" name="phone" class="border p-3 rounded" required>
+      <input type="date" name="date" class="border p-3 rounded" required>
+      <input type="time" name="time" class="border p-3 rounded" required>
+      <input type="number" name="people" min="1" value="1" class="border p-3 rounded" required>
+      <button type="submit" class="glow-btn">Book Now</button>
+      <p id="formMessage" class="text-center mt-2"></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 text-center bg-gray-800 text-white relative z-10">
+    <p>© 2025 Shraddha Restaurant. All rights reserved.</p>
+    <p>Contact: +91 99753 11848</p>
+  </footer>
+
+  <!-- JS Booking Form -->
+  <script>
+    const form = document.getElementById('bookingForm');
+    const message = document.getElementById('formMessage');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      message.textContent = "Thank you! Your booking request has been received.";
+      message.classList.add("text-green-500");
+      form.reset();
+    });
+  </script>
+
+  <!-- JS Three.js 3D Animated Background -->
+  <script>
+    const canvas = document.getElementById('bgCanvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    // Floating spheres (representing food items)
+    const spheres = [];
+    const sphereCount = 30;
+    for(let i=0;i<sphereCount;i++){
+      const geometry = new THREE.SphereGeometry(Math.random()*0.3+0.1, 32, 32);
+      const material = new THREE.MeshStandardMaterial({ color: `hsl(${Math.random()*360}, 80%, 60%)`, emissive: 0xffaa55 });
+      const sphere = new THREE.Mesh(geometry, material);
+      sphere.position.set(Math.random()*10-5, Math.random()*5-2.5, Math.random()*-10);
+      spheres.push(sphere);
+      scene.add(sphere);
+    }
+
+    camera.position.z = 5;
+
+    function animate(){
+      requestAnimationFrame(animate);
+      spheres.forEach(s => {
+        s.rotation.x += 0.01;
+        s.rotation.y += 0.01;
+        s.position.y += Math.sin(Date.now()*0.001 + s.position.x)*0.002;
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+
+</body>
+</html>
