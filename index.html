@@ -1,106 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shraddha Restaurant</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shraddha Restaurant — Premium Dining</title>
+  <meta name="description" content="Shraddha Restaurant — Premium dining experience, fresh & hygienic meals, corporate catering, online booking." />
+  <meta name="theme-color" content="#0b0b0b">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    .menu-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+    :root{
+      --bg:#070707; --card:#0d0d0f; --muted:#bfb7aa; --gold:#ffb86b; --accent:#ff6a1f; --radius:18px; --maxw:1180px;
     }
-    .glow-btn {
-      background: linear-gradient(90deg,#ff7e5f,#feb47b);
-      color: white;
-      font-weight: bold;
-      padding: 0.75rem 2rem;
-      border-radius: 9999px;
-      box-shadow: 0 0 15px #ff7e5f, 0 0 30px #feb47b;
-      transition: 0.3s all;
-    }
-    .glow-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #ff7e5f, 0 0 50px #feb47b;
-    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; padding:0; font-family:"Poppins",sans-serif; background:linear-gradient(180deg,#050506,var(--bg)); color:#efece6; line-height:1.45;}
+    a{text-decoration:none; color:inherit}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    header.topbar{padding:28px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+    .brand{display:flex; align-items:center; gap:14px;}
+    .logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(90deg,var(--accent),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;color:#0b0b0b}
+    .brand h1{margin:0; font-size:18px;}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    .contact-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .phone-pill{background:linear-gradient(90deg,var(--gold),var(--accent));color:#0b0b0b;padding:10px 14px;border-radius:999px;font-weight:800;box-shadow:0 12px 30px rgba(255,166,95,0.06)}
+    .inquiry-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:var(--muted);font-weight:700}
+    .hero{margin:20px 0 36px;height:520px;border-radius:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:36px;background:linear-gradient(180deg, rgba(12,12,12,0.6), rgba(0,0,0,0.8));box-shadow:0 20px 60px rgba(0,0,0,0.6);}
+    .hero-left{flex:1;max-width:640px;z-index:5}
+    .kicker{display:inline-block;background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px;font-weight:700;color:var(--muted);margin-bottom:12px}
+    .hero-left h2{margin:0;font-size:38px;line-height:1.05}
+    .hero-left p{margin:12px 0 0;color:rgba(255,255,255,0.88);font-size:16px}
+    .cta-row{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),var(--accent));padding:12px 18px;border-radius:12px;font-weight:800;color:#0b0b0b;box-shadow:0 16px 40px rgba(255,166,95,0.08)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 16px;border-radius:12px;color:var(--muted);font-weight:700}
+    .hero-right{width:520px;height:420px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;background:#111}
+    section{padding:56px 0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .section-head h3{margin:0;font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 30px rgba(0,0,0,0.6)}
+    .card h4{margin:0 0 8px}
+    .muted{color:var(--muted);font-size:13px}
+    .price{color:var(--gold);font-weight:800;margin-top:8px}
+    .wa-float{position:fixed;right:18px;bottom:18px;z-index:9999;background:linear-gradient(90deg,var(--gold),var(--accent));width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,0.6);font-size:28px;color:#0b0b0b;text-decoration:none}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,2,2,0.6);display:none;align-items:center;justify-content:center;z-index:10000;padding:20px}
+    .modal{width:100%;max-width:560px;background:linear-gradient(180deg,#0f0f10,#0b0b0b);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04)}
+    .input,.select,.textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-top:8px}
+    .textarea{min-height:96px;resize:vertical}
+    .btn-send{background:linear-gradient(90deg,var(--gold),var(--accent));padding:12px 14px;border-radius:10px;border:0;font-weight:800;color:#0b0b0b;width:100%}
+    .btn-cancel{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:var(--muted);width:100%}
+    footer{padding:36px 0;border-top:1px solid rgba(255,255,255,0.03);margin-top:36px}
+    .footer-grid{display:flex;align-items:flex-start;gap:20px;justify-content:space-between;flex-wrap:wrap}
+    @media (max-width:980px){.hero{flex-direction:column;height:auto;padding:22px}.hero-right{width:100%;height:320px;margin-top:18px}}
   </style>
 </head>
-<body class="font-sans text-gray-900">
+<body>
+<header class="container topbar">
+  <div class="brand"><div class="logo">SR</div><div><h1>Shraddha Restaurant</h1><p class="muted">Amravati · Premium Dining</p></div></div>
+  <div class="contact-actions">
+    <a class="phone-pill" href="tel:+919975311848">📞 +91 99753 11848</a>
+    <button class="inquiry-btn" id="openInquiry">📩 Inquiry / Corporate</button>
+  </div>
+</header>
 
-  <!-- Hero Section -->
-  <section class="h-screen bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 flex flex-col justify-center items-center text-white">
-    <h1 class="text-6xl font-bold mb-4">Shraddha Restaurant</h1>
-    <p class="text-xl mb-8">Premium Dining Experience</p>
-    <button onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})" class="glow-btn">
-      Book a Table
-    </button>
-  </section>
+<section class="container hero">
+  <div class="hero-left">
+    <span class="kicker">SHRADDHA — Premium</span>
+    <h2>Exquisite Dining Experience • Fresh & Hygienic</h2>
+    <p>Table reservations, corporate catering & special meals. Serving quality cuisine across Amravati.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="https://wa.me/919975311848?text=Hello%20Shraddha%20Restaurant%2C%20I%20am%20interested.">📲 Book / Inquiry</a>
+      <a class="btn-ghost" href="#menu">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-right">Hero 3D Placeholder</div>
+</section>
 
-  <!-- Menu Section -->
-  <section class="py-20 px-10 bg-gray-50">
-    <h2 class="text-4xl font-semibold text-center mb-12">Our Menu</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Menu Item 1 -->
-      <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
-        <img src="https://source.unsplash.com/400x300/?pizza" alt="Pizza" class="w-full h-48 object-cover">
-        <div class="p-5">
-          <h3 class="text-2xl font-semibold mb-2">Cheese Pizza</h3>
-          <p class="text-gray-700 mb-2">Classic cheesy delight with fresh toppings.</p>
-          <p class="font-bold text-red-500">₹250</p>
-        </div>
-      </div>
-      <!-- Menu Item 2 -->
-      <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
-        <img src="https://source.unsplash.com/400x300/?burger" alt="Burger" class="w-full h-48 object-cover">
-        <div class="p-5">
-          <h3 class="text-2xl font-semibold mb-2">Veg Burger</h3>
-          <p class="text-gray-700 mb-2">Loaded with fresh veggies and sauces.</p>
-          <p class="font-bold text-red-500">₹150</p>
-        </div>
-      </div>
-      <!-- Menu Item 3 -->
-      <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
-        <img src="https://source.unsplash.com/400x300/?pasta" alt="Pasta" class="w-full h-48 object-cover">
-        <div class="p-5">
-          <h3 class="text-2xl font-semibold mb-2">Italian Pasta</h3>
-          <p class="text-gray-700 mb-2">Creamy pasta with herbs and spices.</p>
-          <p class="font-bold text-red-500">₹200</p>
-        </div>
-      </div>
+<main class="container">
+  <section id="menu">
+    <div class="section-head"><h3>Our Menu</h3><div class="muted">Fresh & hygienic dishes — Veg & Non-Veg options</div></div>
+    <div class="grid">
+      <div class="card"><h4>Veg Thali</h4><div class="muted">Paneer Sabzi • Dal • Roti • Rice • Salad</div><div class="price">₹180 – ₹220</div><a class="btn-primary" href="https://wa.me/919975311848?text=I%20want%20Veg%20Thali.">Enquire on WhatsApp</a></div>
+      <div class="card"><h4>Non-Veg Thali</h4><div class="muted">Chicken Curry • Rice • Roti • Salad</div><div class="price">₹250 – ₹300</div><a class="btn-primary" href="https://wa.me/919975311848?text=I%20want%20Non-Veg%20Thali.">Enquire on WhatsApp</a></div>
+      <div class="card"><h4>Paneer Special</h4><div class="muted">Paneer Butter Masala • Naan • Rice</div><div class="price">₹270</div><a class="btn-primary" href="https://wa.me/919975311848?text=I%20want%20Paneer%20Special.">Enquire on WhatsApp</a></div>
+      <div class="card"><h4>Mixed Platter</h4><div class="muted">Veg + Non-Veg combination, Rice, Roti, Salad</div><div class="price">₹320</div><a class="btn-primary" href="https://wa.me/919975311848?text=I%20want%20Mixed%20Platter.">Enquire on WhatsApp</a></div>
     </div>
   </section>
+</main>
 
-  <!-- Booking Section -->
-  <section id="booking" class="py-20 px-10 bg-white">
-    <h2 class="text-4xl font-semibold text-center mb-8">Reserve Your Table</h2>
-    <form id="bookingForm" class="max-w-xl mx-auto grid gap-4">
-      <input type="text" placeholder="Name" name="name" class="border p-3 rounded" required>
-      <input type="text" placeholder="Phone" name="phone" class="border p-3 rounded" required>
-      <input type="date" name="date" class="border p-3 rounded" required>
-      <input type="time" name="time" class="border p-3 rounded" required>
-      <input type="number" name="people" min="1" value="1" class="border p-3 rounded" required>
-      <button type="submit" class="glow-btn">Book Now</button>
-      <p id="formMessage" class="text-center mt-2"></p>
-    </form>
-  </section>
+<footer class="container">
+  <div class="footer-grid">
+    <div><div style="font-weight:800;">Shraddha Restaurant</div><div class="muted">Amravati · Premium Dining</div><div class="muted">© <span id="year"></span></div></div>
+    <div style="display:flex;gap:12px"><a class="inquiry-btn" href="https://wa.me/919975311848">WhatsApp Support</a><a class="inquiry-btn" href="tel:+919975311848">Call Us</a></div>
+  </div>
+</footer>
 
-  <!-- Footer -->
-  <footer class="py-10 text-center bg-gray-800 text-white">
-    <p>© 2025 Shraddha Restaurant. All rights reserved.</p>
-    <p>Contact: +91 99753 11848</p>
-  </footer>
+<a class="wa-float" href="https://wa.me/919975311848">💬</a>
 
-  <script>
-    const form = document.getElementById('bookingForm');
-    const message = document.getElementById('formMessage');
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      message.textContent = "Thank you! Your booking request has been received.";
-      message.classList.add("text-green-500");
-      form.reset();
-    });
-  </script>
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h4>Quick Inquiry</h4>
+    <input id="inName" class="input" placeholder="Your name">
+    <input id="inPhone" class="input" placeholder="Phone (optional)">
+    <select id="inPlan" class="select">
+      <option>General Inquiry</option>
+      <option>Veg Thali</option>
+      <option>Non-Veg Thali</option>
+      <option>Paneer Special</option>
+      <option>Mixed Platter</option>
+    </select>
+    <textarea id="inMsg" class="textarea" placeholder="Additional notes"></textarea>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button id="sendWhatsApp" class="btn-send">Open WhatsApp & Send</button>
+      <button id="cancelModal" class="btn-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
 
+<script>
+document.getElementById('year').innerText = new Date().getFullYear();
+const modal = document.getElementById('modal');
+document.getElementById('openInquiry').onclick = ()=>{modal.style.display='flex';}
+document.getElementById('cancelModal').onclick = ()=>{modal.style.display='none';}
+document.getElementById('sendWhatsApp').onclick = ()=>{
+  const name=document.getElementById('inName').value;
+  const phone=document.getElementById('inPhone').value;
+  const plan=document.getElementById('inPlan').value;
+  const msg=document.getElementById('inMsg').value;
+  const waMsg=`Hello Shraddha Restaurant, I am ${name}${phone? ', Phone: '+phone : ''}, interested in ${plan}. ${msg}`;
+  window.open(`https://wa.me/919975311848?text=${encodeURIComponent(waMsg)}`, '_blank');
+}
+</script>
 </body>
 </html>
